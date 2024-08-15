@@ -20,5 +20,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: my_script.exe
+        name: allegro_local_cart_storage.exe
         path: dist/allegro_local_cart_storage.exe
