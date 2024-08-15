@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moje koszyki</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- htmx -->
+    <script src="https://unpkg.com/htmx.org@latest"></script>
+    <script src="https://unpkg.com/idiomorph/dist/idiomorph-ext.min.js"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Moje koszyki</h1>
+
+        <form action="{{ url_for('add_cart') }}" method="POST" class="mb-6 w-96">
+            <input type="text" name="cart_name" placeholder="Nazwa nowego koszyka" required
+                   class="p-2 border border-gray-300 rounded">
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded">Utwórz koszyk</button>
+        </form>
+
+        <ul class="list-disc pl-6" hx-confirm="Na pewno chcesz usunąć ten koszyk?" hx-target="closest li" hx-swap="outerHTML swap:1s">
+            {% for cart in carts %}
+                <li class="flex justify-between items-center bg-white p-4 mb-2 rounded shadow-sm">
+                    <a href="{{ url_for('view_cart', cart_id=cart.id) }}" class="text-blue-600">{{ cart.name }}</a>
+                    <button  hx-delete="{{ url_for('delete_cart', cart_id=cart.id) }}" class="text-red-500">Usuń</button>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

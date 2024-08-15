@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <title>{{ cart.name }}</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- htmx -->
+        <script src="https://unpkg.com/htmx.org@latest"></script>
+        <script src="https://unpkg.com/idiomorph/dist/idiomorph-ext.min.js"></script>
+    </head>
+    <body class="bg-gray-100 p-6">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold mb-6">{{ cart.name }}</h1>
+                    <a
+                        href="{{ url_for('index') }}"
+                        class="text-blue-500 mb-4 inline-block"
+                        >Wróć do wszystkich koszyków</a
+                    >
+                </div>
+                <div>
+                    <span class="font-semibold">Wartość produktów:</span>
+                    <span>{{ '%0.2f' % total_cart_value | float }} zł</span>
+                </div>
+            </div>
+            <div class="bg-white shadow overflow-auto sm:rounded-lg">
+                <table class="table-auto min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Zdjęcie
+                            </th>
+                            <th
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Nazwa oferty
+                            </th>
+                            <th
+                                scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Cena
+                            </th>
+                            <th
+                                scope="col"
+                                class="relative px-6 py-3">
+                                <span class="sr-only">Usuń</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody
+                        class="divide-y divide-gray-200"
+                        hx-get="{{ url_for('get_cart_items', cart_id=cart.id) }}"
+                        hx-trigger="load, every 1s"
+                        hx-ext="morph"
+                        hx-swap="morph:innerHTML">
+                        <!-- Content dynamically loaded here by HTMX -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

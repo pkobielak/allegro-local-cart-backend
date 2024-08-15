@@ -1,0 +1,18 @@
+{% for offer in cart.offers %}
+<tr>
+    <td class="px-6 py-4 whitespace-nowrap">
+        <img src="{{ offer.image }}" alt="{{ offer.name }}" class="max-w-24 max-h-24 rounded-full">
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap">
+        <a class="font-medium text-blue-600 hover:underline" href="{{ offer.link }}" ><div class="text-sm">{{ offer.name }}</div></a>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm text-gray-500">{{ offer.price }}</div>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+        <form hx-post="{{ url_for('delete_offer', offer_id=offer.id) }}" hx-swap="outerHTML" hx-target="this">
+            <button type="submit" class="text-red-500">Usuń</button>
+        </form>
+    </td>
+</tr>
+{% endfor %}
