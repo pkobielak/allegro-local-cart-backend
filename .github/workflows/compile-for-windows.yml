@@ -13,7 +13,7 @@ jobs:
         python-version: '3.x'
     - name: Install dependencies
       run: |
-        pip install pyinstaller
+        pip install pyinstaller unidecode apscheduler flask flask_cors flask_sqlalchemy
     - name: Build executable
       run: |
         pyinstaller --onefile app.py --name allegro_local_cart_storage
