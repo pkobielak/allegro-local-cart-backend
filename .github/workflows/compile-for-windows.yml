@@ -16,7 +16,7 @@ jobs:
         pip install pyinstaller unidecode apscheduler flask flask_cors flask_sqlalchemy
     - name: Build executable
       run: |
-        pyinstaller --onefile app.py --name allegro_local_cart_storage
+        pyinstaller --onefile app.py --name allegro_local_cart_storage --add-data "templates;templates"
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
